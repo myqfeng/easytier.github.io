@@ -1,10 +1,12 @@
+---
+outline: deep
+---
+
 # Complete Configuration Options
 
 You can use `easytier-core --help` to view all configuration options.
 
-## Basic Settings
-
-### Configuration Server
+## Configuration Server
 
 | Parameter               | Description                                                                                                                                                                                                          |
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -17,7 +19,7 @@ You can use `easytier-core --help` to view all configuration options.
 | `--config-dir`          | Load all .toml files in the directory to start network instances, and store the received configurations in this directory. [env: ET_CONFIG_DIR=]                                                                     |
 | `--disable-env-parsing` | Disable environment variable parsing in config file [env: ET_DISABLE_ENV_PARSING=]                                                                                                                                   |
 
-### Network Settings
+## Network Settings
 
 | Parameter              | Description                                                                                                                                                                                             |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -30,7 +32,7 @@ You can use `easytier-core --help` to view all configuration options.
 | `-e, --external-node`  | Use public shared nodes to discover peer nodes [env: ET_EXTERNAL_NODE=]                                                                                                                                 |
 | `-n, --proxy-networks` | Export local network to other peer nodes in VPN, e.g.: `10.0.0.0/24`. Supports mapping to other CIDR, e.g.: `10.0.0.0/24->192.168.0.0/24` [env: ET_PROXY_NETWORKS=]                                     |
 
-### RPC Settings
+## RPC Settings
 
 | Parameter                | Description                                                                                                                                     |
 | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -42,7 +44,7 @@ You can use `easytier-core --help` to view all configuration options.
 |                          | [env: ET_RPC_PORTAL=]                                                                                                                           |
 | `--rpc-portal-whitelist` | RPC portal whitelist, only allow these addresses to access RPC portal, e.g.: `127.0.0.1/32,127.0.0.0/8,::1/128` [env: ET_RPC_PORTAL_WHITELIST=] |
 
-### Listener Settings
+## Listener Settings
 
 | Parameter            | Description                                                                                                                                                                                           |
 | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -54,7 +56,7 @@ You can use `easytier-core --help` to view all configuration options.
 | `--mapped-listeners` | Manually specify the public address of the listener, other nodes can use this address to connect to this node. E.g.: `tcp://123.123.123.123:11223`, can specify multiple. [env: ET_MAPPED_LISTENERS=] |
 | `--no-listener`      | Don't listen on any port, only connect to peer nodes [env: ET_NO_LISTENER=]                                                                                                                           |
 
-### Other Settings
+## Other Settings
 
 | Parameter                            | Description                                                                                                                                                                                                                                                                |
 | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -105,7 +107,7 @@ You can use `easytier-core --help` to view all configuration options.
 | `--stun-servers`                     | Override default STUN servers; If configured but empty, STUN servers are not used [env: ET_STUN_SERVERS=]                                                                                                                                                                  |
 | `--stun-servers-v6`                  | Override default STUN servers, IPv6; If configured but empty, IPv6 STUN servers are not used [env: ET_STUN_SERVERS_V6=]                                                                                                                                                    |
 
-### Logging Settings
+## Logging Settings
 
 | Parameter             | Description                                                        |
 | --------------------- | ------------------------------------------------------------------ |
@@ -114,6 +116,58 @@ You can use `easytier-core --help` to view all configuration options.
 | `--file-log-dir`      | Directory to store log files [env: ET_FILE_LOG_DIR=]               |
 | `--file-log-size`     | Per file log size in MB, default is 100MB [env: ET_FILE_LOG_SIZE=] |
 | `--file-log-count`    | Max file log count, default is 10 [env: ET_FILE_LOG_COUNT=]        |
+
+Logging is process-level configuration, set via command-line flags or environment variables. It cannot be set in the `-c` config file: the logger is initialized at process startup, before any config files are loaded, and one process can host several network instances via multiple `-c` files, so logging options apply to the whole process.
+
+### Default Behavior
+
+By default EasyTier only prints `info`-level logs from the core module to the console, and file logging is disabled.
+
+### Console Log Level
+
+Set the console log level with `--console-log-level` (or the `ET_CONSOLE_LOG_LEVEL` environment variable). Valid values: `trace`, `debug`, `info`, `warn`, `error`, `off`.
+
+```sh
+easytier-core --console-log-level debug
+ET_CONSOLE_LOG_LEVEL=debug easytier-core
+```
+
+You can also use the `RUST_LOG` environment variable for fine-grained per-target control, e.g. debug for the core module and disabled for hyper:
+
+```sh
+RUST_LOG=warn,easytier_core=debug,hyper=off easytier-core
+```
+
+`RUST_LOG` overrides the console log level and also applies to file logging.
+
+### File Logging
+
+File logging is disabled by default. It is enabled as soon as you set `--file-log-level` (or the `ET_FILE_LOG_LEVEL` environment variable) to anything other than `off`, writing to `easytier.log` in the process working directory by default:
+
+```sh
+easytier-core --file-log-level info
+```
+
+The remaining options are optional:
+
+| Parameter             | Description                                     |
+| --------------------- | ----------------------------------------------- |
+| `--file-log-dir`      | Directory for log files, default is the working directory |
+| `--file-log-size`     | Max size per file in MB, default is 100         |
+| `--file-log-count`    | Number of log files to keep, default is 10      |
+
+Log files rotate daily and are cleaned up automatically once the size or count limit is reached.
+
+### Adjusting the Log Level at Runtime
+
+While the process is running you can inspect or change the log level over RPC:
+
+```sh
+easytier-cli logger            # show the current configuration
+easytier-cli logger set debug  # set the level
+```
+
+`easytier-cli logger set` accepts `disabled`, `error`, `warning`, `info`, `debug`, `trace` and adjusts the file log level.
 
 ---
 
