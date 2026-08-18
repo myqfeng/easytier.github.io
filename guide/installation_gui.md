@@ -67,11 +67,15 @@
 
 ---
 
-### [EasyTier iOS ( iOS 16.0+ )](https://github.com/EasyTier/EasyTier-iOS)
+### [EasyTier iOS (iOS 16.0+/macOS 13.0+)](https://github.com/EasyTier/EasyTier-iOS)
 
-  EasyTier 的 iOS 客户端，提供友好的界面以在 iOS 设备上连接 EasyTier 网络，并使用 Network Extension 框架实现系统级 VPN 集成。
+  EasyTier 的 SwiftUI 客户端，提供友好的界面以在 iOS/macOS 设备上连接 EasyTier 网络，并使用 Network Extension 框架实现系统级 VPN 集成。
 
-  [TestFlight 邀请链接](https://testflight.apple.com/join/YWnDyJfM)（免费，预览版本，有人数限制，定期清理）
+  通过 App Store 下载（仅在外区上架）：
+
+  <a href="https://apps.apple.com/app/easytier/id6788989728">
+    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="在 App Store 下载" height="40">
+  </a>
 
 ---
 

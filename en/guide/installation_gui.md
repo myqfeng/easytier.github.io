@@ -65,11 +65,15 @@ It has now been integrated into the HMCL launcher—you can try the program feat
 
 ---
 
-### [EasyTier iOS (iOS 16.0+)](https://github.com/EasyTier/EasyTier-iOS)
+### [EasyTier iOS (iOS 16.0+/macOS 13.0+)](https://github.com/EasyTier/EasyTier-iOS)
 
-The iOS client for EasyTier, offering a user-friendly interface for connecting to the EasyTier network on iOS devices, and implementing system-level VPN integration using the Network Extension framework.
+The SwiftUI client for EasyTier, offering a user-friendly interface for connecting to the EasyTier network on iOS and macOS devices, and implementing system-level VPN integration using the Network Extension framework.
 
-[TestFlight Invitation](https://testflight.apple.com/join/YWnDyJfM) (free, preview version, limited slots, periodically cleaned up)
+Available on the App Store (except for China mainland region):
+
+<a href="https://apps.apple.com/app/easytier/id6788989728">
+  <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" height="40">
+</a>
 
 ---
 
