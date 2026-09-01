@@ -79,13 +79,11 @@
 
 ---
 
-### [QtEasyTier 组网工具 (Windows)](/guide/gui/qteasytier)
+### [QtEasyTier 组网工具 (Windows / Linux)](/guide/gui/qteasytier)
 
-  基于 Qt Widget 框架开发的 EasyTier 前端，界面美观，简单易用，功能强大。使用纯 Qt C++ 编写，系统原生渲染，不依赖 WebView 或者 Chromium 内核，内存占用低。
-  
-  QtEasyTier 支持配置文件的导出与导入，一键联机更方便。且支持多组网同时运行，软件主界面即可查看运行状态，工作，生活，娱乐一站式解决。
+ QtEasyTier 是一个基于 Qt 6 / C++ 的 EasyTier 桌面客户端。它提供了直观的图形界面，帮助用户轻松配置和管理虚拟网络，实现跨网络设备的安全通信。支持 Windows、Linux双平台。
 
-  - 项目地址：[https://gitee.com/viagrahuang/qt-easy-tier](https://gitee.com/viagrahuang/qt-easy-tier)
+  - 项目地址：[https://github.com/qteasytier/qt-easy-tier](https://github.com/qteasytier/qt-easy-tier)
   - 宣传视频：[https://www.bilibili.com/video/BV1ST6nBzE1k](https://www.bilibili.com/video/BV1ST6nBzE1k)
 
 
